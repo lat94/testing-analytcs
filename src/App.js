@@ -1,7 +1,17 @@
 import React, { Component } from 'react'
 import './App.css'
-
+import { withStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
 import axios from 'axios'
+
+const styles = theme => ({
+  button: {
+    margin: theme.spacing.unit,
+  },
+  input: {
+    display: 'none',
+  },
+});
 
 class App extends Component {
   constructor () {
@@ -14,31 +24,40 @@ class App extends Component {
   }
 
   handleClick () {
-    axios.get('https://api.github.com/users/lat94')
-      .then(response => this.setState({username: response.data.name}))
+    let url = 'http://172.16.1.227:3000/customers/list';
+    
+    axios.get(url)
+      .then(response => {
+        this.setState({username: response.data[0].name})
+      }, error => {
+
+      })
   }
 
   createPerson(){
-    axios.post('/person/create', {
-      name: 'Cleitu Rasta',
-      city: 'Atalaió',
-      dateOfBirth: new Date()
+    axios.post('http://172.16.1.227:3000/customers/create', {      
+      name: "Cleitu Rasta",
+      email: "cabecadegelo@atalaio.com",
+      born: "24/04/1975"
     })
     .then(function (response) {
       console.log(response);
-    })
-    .catch(function (error) {
+    }, error => {
       console.log(error);
-    });
+
+    });    
   }
 
   render () {
     return (
-      <div className='button__container'>
+      <div className='button-container'>
         <button className='button' onClick={this.handleClick}>Click Me</button>
         <p>{this.state.username}</p>
         <button className='buttonPerson' onClick={this.createPerson}>Create</button>
         <p>{this.state.person}</p>
+        <Button variant="contained" color="primary">
+          Primary
+        </Button>
       </div>
     )
   }
