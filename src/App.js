@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import './App.css'
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
 import axios from 'axios'
 import fetch from 'node-fetch';
 
@@ -18,47 +19,53 @@ class App extends Component {
   constructor () {
     super()
     this.state = {
-      username: ''
+      listCustomers:[]
     }
 
-    this.handleClick = this.handleClick.bind(this)
+    this.handleClick = this.getCustomers.bind(this)
+    this.mountList = this.mountList.bind(this)
+
+
   }
 
-  handleClick () {
-    let url = 'http://localhost:3003/lucah';
+  async mountList() {
+    let persons = await this.getCustomers();
+    console.log("mountList");    
+    console.log(persons);
+    let listCustomers = persons;
+
+    this.setState({listCustomers});
     
-    axios.get(url)
+  }
+
+  getCustomers () {
+    let url = 'http://172.16.0.51:3010/customers/list';
+    
+    return axios.get(url)
       .then(response => {
-        this.setState({username: response.data[0].name})
+        //this.setState({username: response.data[0].name})
+        console.log("handle click");
+        
+        console.log(response.data);        
+        return response.data;
       }, error => {
+        console.log(error);       
 
       })
   }
-
-  /*createPerson(){
-    axios.post('http://172.16.1.190:3000/lucah', {      
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: {
-        name: "Cleitu Rasta",
-        email: "cabecadegelo@atalaio.com",
-        born: "24/04/1975"
-      }
-      
-    })
-    .then(function (response) {
-      console.log(response);
-    }, error => {
-      console.log(error);
-
-    });    
-  }*/
+  
   createPerson(){
-    var body = { a: 1 };
-    fetch('http://localhost:3003/lucah', { 
+    var body = { name: document.getElementById("name").value,
+                 email: document.getElementById("email").value,
+                 born: document.getElementById("born").value };
+    
+    document.getElementById("name").value = "";
+    document.getElementById("email").value = "";
+    document.getElementById("born").value = "";
+    document.getElementById("name").focus(); 
+    
+                 
+    fetch('http://172.16.0.51:3010/customers/create', { 
         method: 'POST',
         body:    JSON.stringify(body),
         headers: {
@@ -70,14 +77,23 @@ class App extends Component {
 
   }
 
-  
+
+
 
   render () {
     return (
       <div className='button-container'>
-        <button className='button' onClick={this.handleClick}>Click Me</button>
-        <p>{this.state.username}</p>
+        <button className='button' onClick={this.mountList}>Get</button>
+        { this.state.listCustomers.map(customers => <p>{customers.name} {customers.email} {customers.born}</p>)}
+        <p></p>
+        <input id="name"></input>
+        <input id="email"></input>
+        <input id="born"></input>
+        <p></p>
         <button className='buttonPerson' onClick={this.createPerson}>Create</button>
+        <p></p>
+        
+
         <p>{this.state.person}</p>
         <Button variant="contained" color="primary">
           Primary
@@ -87,3 +103,5 @@ class App extends Component {
   }
 }
 export default App
+  
+
