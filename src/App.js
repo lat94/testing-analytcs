@@ -3,6 +3,7 @@ import './App.css'
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import axios from 'axios'
+import fetch from 'node-fetch';
 
 const styles = theme => ({
   button: {
@@ -24,7 +25,7 @@ class App extends Component {
   }
 
   handleClick () {
-    let url = 'http://172.16.1.227:3000/customers/list';
+    let url = 'http://localhost:3003/lucah';
     
     axios.get(url)
       .then(response => {
@@ -34,11 +35,19 @@ class App extends Component {
       })
   }
 
-  createPerson(){
-    axios.post('http://172.16.1.227:3000/customers/create', {      
-      name: "Cleitu Rasta",
-      email: "cabecadegelo@atalaio.com",
-      born: "24/04/1975"
+  /*createPerson(){
+    axios.post('http://172.16.1.190:3000/lucah', {      
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: {
+        name: "Cleitu Rasta",
+        email: "cabecadegelo@atalaio.com",
+        born: "24/04/1975"
+      }
+      
     })
     .then(function (response) {
       console.log(response);
@@ -46,7 +55,22 @@ class App extends Component {
       console.log(error);
 
     });    
+  }*/
+  createPerson(){
+    var body = { a: 1 };
+    fetch('http://localhost:3003/lucah', { 
+        method: 'POST',
+        body:    JSON.stringify(body),
+        headers: {
+           'Content-Type': 'application/json' 
+        },
+    })
+    .then(res => res.json())
+    .then(json => console.log(json));       
+
   }
+
+  
 
   render () {
     return (
