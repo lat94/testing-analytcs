@@ -1,19 +1,8 @@
 import React, { Component } from 'react'
 import './App.css'
-import { withStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
 import axios from 'axios'
-import fetch from 'node-fetch';
-
-const styles = theme => ({
-  button: {
-    margin: theme.spacing.unit,
-  },
-  input: {
-    display: 'none',
-  },
-});
+import fetch from 'node-fetch'
+import Analytics from './Analytics'
 
 class App extends Component {
   constructor () {
@@ -24,7 +13,6 @@ class App extends Component {
 
     this.handleClick = this.getCustomers.bind(this)
     this.mountList = this.mountList.bind(this)
-
 
   }
 
@@ -50,7 +38,6 @@ class App extends Component {
         return response.data;
       }, error => {
         console.log(error);       
-
       })
   }
   
@@ -63,7 +50,8 @@ class App extends Component {
     document.getElementById("email").value = "";
     document.getElementById("born").value = "";
     document.getElementById("name").focus(); 
-    
+
+    let analytics = new Analytics();
                  
     fetch('http://172.16.0.51:3010/customers/create', { 
         method: 'POST',
@@ -74,34 +62,29 @@ class App extends Component {
     })
     .then(res => res.json())
     .then(json => console.log(json));       
+  
+    analytics.send('post', body);
+    analytics.GA('create',body);
 
   }
-
-
-
-
+  
   render () {
     return (
       <div className='button-container'>
-        <button className='button' onClick={this.mountList}>Get</button>
+      <h1>Client - React JS</h1>
+        <p>Nome</p><input id="name"></input>
+        <p>Email</p><input id="email"></input>
+        <p>Data de Nascimento</p><input id="born"></input>
+        <p></p><button className='buttonPerson' onClick={this.createPerson}>Create</button>
+        <p></p><button className='button' onClick={this.mountList}>Get</button>
         { this.state.listCustomers.map(customers => <p>{customers.name} {customers.email} {customers.born}</p>)}
-        <p></p>
-        <input id="name"></input>
-        <input id="email"></input>
-        <input id="born"></input>
-        <p></p>
-        <button className='buttonPerson' onClick={this.createPerson}>Create</button>
-        <p></p>
-        
-
         <p>{this.state.person}</p>
-        <Button variant="contained" color="primary">
-          Primary
-        </Button>
+        
       </div>
     )
   }
 }
+
 export default App
   
 
