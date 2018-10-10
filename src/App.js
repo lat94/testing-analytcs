@@ -27,7 +27,7 @@ class App extends Component {
   }
 
   getCustomers () {
-    let url = 'http://172.16.0.51:3010/customers/list';
+    let url = 'http://test-analytics.saas-solinftec/customers/list';
     
     return axios.get(url)
       .then(response => {
@@ -53,7 +53,7 @@ class App extends Component {
 
     let analytics = new Analytics();
                  
-    fetch('http://172.16.0.51:3010/customers/create', { 
+    fetch('http://test-analytics.saas-solinftec/customers/create', { 
         method: 'POST',
         body:    JSON.stringify(body),
         headers: {
@@ -65,7 +65,6 @@ class App extends Component {
   
     analytics.send('post', body);
     analytics.GA('create',body);
-
   }
   
   render () {
@@ -79,7 +78,6 @@ class App extends Component {
         <p></p><button className='button' onClick={this.mountList}>Get</button>
         { this.state.listCustomers.map(customers => <p>{customers.name} {customers.email} {customers.born}</p>)}
         <p>{this.state.person}</p>
-        
       </div>
     )
   }
