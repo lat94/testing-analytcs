@@ -42,9 +42,12 @@ class App extends Component {
   }
   
   createPerson(){
-    var body = { name: document.getElementById("name").value,
-                 email: document.getElementById("email").value,
-                 born: document.getElementById("born").value };
+    let name = document.getElementById("name").value;
+    let email = document.getElementById("email").value;
+    let born = document.getElementById("born").value;
+    var body = {name,
+                email,
+                born};
     
     document.getElementById("name").value = "";
     document.getElementById("email").value = "";
@@ -67,7 +70,7 @@ class App extends Component {
     analytics.GA('create',body);*/
 
     analytics.GA('send', {
-      'hitType': 'event', 'eventCategory': 'Event2', 'eventAction': 'Action2', 'eventLabel': {"name": name, "email": email, "born": born} }
+      'hitType': 'event', 'eventCategory': 'Event2', 'eventAction': 'Action2', 'eventLabel': born }
     );
     
    
