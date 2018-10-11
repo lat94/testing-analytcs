@@ -69,9 +69,32 @@ class App extends Component {
     /*analytics.send('post', body);
     analytics.GA('create',body);*/
 
-    analytics.GA('send', {
+    /*analytics.GA('send', {
       'hitType': 'event', 'eventCategory': 'Event2', 'eventAction': 'Action2', 'eventLabel': born }
-    );
+    );*/
+    analytics.GA((tracker) => {
+
+      // Grabs a reference to the default sendHitTask function.
+      var originalSendHitTask = tracker.get('sendHitTask');
+    
+      // Updates sendHitTask to obfuscate personally identifiable information (PII).
+      tracker.set('sendHitTask', function(model) {
+    
+        var hitPayload = model.get('hitPayload')
+            .replace(/%PII%/g, 'XXXXX');
+    
+        // Updates the hitPayload string for the current hit.
+        model.set('hitPayload', body, true);
+    
+        originalSendHitTask(model);
+      });
+    });
+
+   
+
+
+
+ga('send', 'pageview');
     
    
   }
