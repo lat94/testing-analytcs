@@ -67,7 +67,7 @@ class App extends Component {
     analytics.GA('create',body);*/
 
     analytics.GA('send', {
-      'hitType': 'event', 'eventCategory': 'Event2', 'eventAction': 'Action2', 'eventLabel': [name, email, born] }
+      'hitType': 'event', 'eventCategory': 'Event2', 'eventAction': 'Action2', 'eventLabel': {"name": name, "email": email, "born": born} }
     );
     
    
