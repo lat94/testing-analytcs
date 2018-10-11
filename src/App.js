@@ -70,9 +70,7 @@ class App extends Component {
       'hitType': 'event', 'eventCategory': 'clicked on create', 'eventAction': 'clickAction', 'eventLabel': 'First Event' }
     );*/
 
-    analytics.GA('send', 'event', 'category', 'action', {
-      'metric19': 24.99
-    });
+    analytics.GA('send', 'event', 'OBJ click', 'click', body.json());
   }
   
   render () {
