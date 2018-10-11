@@ -70,7 +70,7 @@ class App extends Component {
   render () {
     return (
       <div className='button-container'>
-      <h1>Client - React JS</h1>
+        <h1>Client - React JS</h1>
         <p>Nome</p><input id="name"></input>
         <p>Email</p><input id="email"></input>
         <p>Data de Nascimento</p><input id="born"></input>

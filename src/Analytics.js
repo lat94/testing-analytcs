@@ -4,12 +4,9 @@ import ReactGA from 'react-ga';
 class Analytics extends Component{
     constructor(props){
         super(props);
-        ReactGA.initialize('AIzaSyBo4MYb4JzC8xFLnA-0zywBWp5kOzpgCs0', {
+        ReactGA.initialize('UA-127318307-1', {
             debug: true,
             titleCase: false,
-            gaOptions: {
-              userId: 123
-            }
           }, ReactGA.pageview('/'));
 
         this.send = this.send.bind(this)
