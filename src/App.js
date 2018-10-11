@@ -66,9 +66,12 @@ class App extends Component {
     /*analytics.send('post', body);
     analytics.GA('create',body);*/
 
-    analytics.GA('send', {
+    /*analytics.GA('send', {
       'hitType': 'event', 'eventCategory': 'clicked on create', 'eventAction': 'clickAction', 'eventLabel': 'First Event' }
-    );
+    );*/
+
+    analytics.GA('send', 'event', 'category', 'action', body);
+    
   }
   
   render () {
