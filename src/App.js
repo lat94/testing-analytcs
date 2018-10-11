@@ -27,7 +27,7 @@ class App extends Component {
   }
 
   getCustomers () {
-    let url = 'https://test-analytics-api.saas-solinftec/customers/list';
+    let url = 'https://test-analytics-api.saas-solinftec.com/customers/list';
     
     return axios.get(url)
       .then(response => {
@@ -53,7 +53,7 @@ class App extends Component {
 
     let analytics = new Analytics();
                  
-    fetch('https://test-analytics-api.saas-solinftec/customers/create', { 
+    fetch('https://test-analytics-api.saas-solinftec.com/customers/create', { 
         method: 'POST',
         body:    JSON.stringify(body),
         headers: {
