@@ -71,7 +71,7 @@ class App extends Component {
     );*/
     
     //analytics.GA('send', 'event','play','Spiderman-2',10);
-    analytics.GA('send', 'event', 'OBJ click', 'click', body.json());
+    analytics.GA('send', 'event', 'OBJ click', 'click', body);
 
    
   }
