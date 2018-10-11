@@ -66,13 +66,10 @@ class App extends Component {
     /*analytics.send('post', body);
     analytics.GA('create',body);*/
 
-    /*analytics.GA('send', {
-      'hitType': 'event', 'eventCategory': 'clicked on create', 'eventAction': 'clickAction', 'eventLabel': 'First Event' }
-    );*/
+    analytics.GA('send', {
+      'hitType': 'event', 'eventCategory': 'Event2', 'eventAction': 'Action2', 'eventLabel': [name, email, born] }
+    );
     
-    //analytics.GA('send', 'event','play','Spiderman-2',10);
-    analytics.GA('send', 'event', 'OBJ click', 'click', body);
-
    
   }
   
