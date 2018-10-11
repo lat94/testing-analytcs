@@ -63,8 +63,13 @@ class App extends Component {
     .then(res => res.json())
     .then(json => console.log(json));       
   
-    analytics.send('post', body);
-    analytics.GA('create',body);
+    /*analytics.send('post', body);
+    analytics.GA('create',body);*/
+
+    analytics.GA('send', 'event', {
+      'eventCategory': 'Testing Analytcs',
+      'eventAction': 'Action on analytcs'
+    });
   }
   
   render () {
